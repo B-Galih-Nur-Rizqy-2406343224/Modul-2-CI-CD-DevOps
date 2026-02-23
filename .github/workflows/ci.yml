@@ -24,6 +24,7 @@ jobs:
   sonarcloud:
     name: SonarCloud Analysis
     runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Check out the Git repository
         uses: actions/checkout@v4
