@@ -19,7 +19,7 @@ jobs:
         with:
           version: '7.0.0-rc4'
           sourcePath: 'src/main/java'
-          rulesets: 'rulesets/java/quickstart.xml,rulesets/java/codestyle.xml,rulesets/java/bestpractices.xml'
+          rulesets: 'rulesets/java/quickstart.xml,category/java/codestyle.xml,category/java/bestpractices.xml'
           analyzeModifiedFilesOnly: false
       - name: Upload SARIF file
         if: always()
