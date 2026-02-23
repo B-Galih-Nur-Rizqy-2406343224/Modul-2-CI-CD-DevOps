@@ -3,6 +3,7 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "6.0.1.5171"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -78,5 +79,16 @@ tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
         xml.required.set(true)
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "B-Galih-Nur-Rizqy-2406343224_Modul-2-CI-CD-DevOps")
+        property("sonar.organization", "b-galih-nur-rizqy-2406343224")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.java.binaries", "build/classes")
+        property("sonar.junit.reportPaths", "build/test-results/test")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
