@@ -1,9 +1,13 @@
-# Refleksi Modul 1
+# Refleksi Modul 2
 
-## Refleksi 1
-Saya belajar untuk ngerapihin struktur biar gampang dibaca dan dikembangin. Saya jadi paham Impelemntasi Controller, Service, Repository itu  supaya logic nggak campur aduk, dan pentingnya penamaan variable yang jelas karena membantu waktu debugging. Saya juga belajar basic secure coding serta operasi yang mengubah data seperti edit/delete lebih tepat pakai POST. Dari sini saya belajar perlu membiasakan diri untuk validasi input dan handle error lebih baik lagi, dan juga clean code yang baru saya sadari pentingnya, yang dimana saya tidak belajar hal ini di PBP.
+## Refleksi 1 – Code Quality Issues
 
-## Refleksi 2
-Alhamdulillah saya senang telah menyelesaikan modul 1, walaupun di tengah-tengah ada error, saya dapat ngebenerinnya, thanks to discord adpro. Jujur saya gak tahu harus ada berapa unit test, yang menurut saya penting adalah mencakup skenario positive, negative, dan edge case. Code coverage 100% juga bukan jaminan tidak ada bug atau error, karena bisa saja ada logic error atau kasus yang tidak kepikiran.
+Pas jalanin SonarCloud scan lewat GitHub Actions, hasilnya aman nggak ada issue yang ketangkep. Tapi ada beberapa hal yang saya benerin sendiri pas review kode manual
 
-Untuk functional test, kalau bikin test suite baru dengan copy paste setup yang sama itu kurang bagus karena banyak kode yang duplikat, yang dimana hal tersebut melanggar prinsip DRY (Dont Repeat Yourself). Kalau nanti ada perubahan setup, harus update di banyak tempat dan bakal rawan error. Seharusnya bisa dibikin lebih clean dengan extract setup yang sama ke base class atau satu tempat, jadi lebih gampang maintain dan nggak ada duplikasi.
+1. Redundant `public` di interface. Di Java, method dalam interface itu udah otomatis `public`, jadi nulis `public` lagi itu sebenernya nggak perlu. Saya hapus aja biar kodenya lebih bersih dan nggak bikin bingung.
+
+2. Double semicolon (`;;`). Di `ProductServiceImpl.java` bagian `findAll()` ada typo kecil, dua titik koma sekaligus. Java sih masih bisa jalan, tapi tetep saya benerin biar kode nya rapi.
+
+## Refleksi 2 – CI/CD Implementation
+
+Menurut saya, implementasi CI/CD yang udah dibuat ini udah memenuhi definisi CI dan CD. Di sisi CI, setiap ada push atau pull request langsung otomatis ngejalanin unit test, ngukur code coverage pakai JaCoCo, scan kualitas kode pakai SonarCloud, dan cek keamanan dependency lewat OSSF Scorecard, semua tanpa harus ngapa-ngapain manual. Di sisi CD, setiap perubahan yang masuk ke branch `main` langsung otomatis kedeploy ke Railway pakai Dockerfile, jadi versi terbaru aplikasi langsung live tanpa perlu deploy sendiri. Menurut saya ini bagus, karena kode yang naik ke production udah pasti udah lewat serangkaian pengecekan otomatis duluan
